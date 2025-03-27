@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "build",
+    "skipLibCheck": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2022",
+    "incremental": true,
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "plugins": [{ "name": "@effect/language-service" }]
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,60 @@
+name: Package Metrics Action
+description: |-
+  A GitHub Action purpose-built for the Effect organization to track various 
+  package metrics, for example bundle size.
+runs:
+  using: "node20"
+  main: "dist/index.js"
+inputs:
+  github_token:
+    description: |-
+      The token that should be used to access the Github API
+    required: true
+  git_user:
+    description: |-
+      This git user to use 
+    required: false
+  git_email:
+    description: |-
+      The git user email to use 
+    required: false
+  base_ref:
+    description: |-
+      The base git ref to use as the reference point for calculating metric
+      differences against the head git ref.
+
+      For example, the calculation for determining the difference in bundle 
+      size will use the following logic:
+
+      ```
+      size_diff = size (head_ref) - size (base_ref)
+      ````
+
+      Defaults to the value of `${{ github.event.pull_request.base.ref }}`.
+    required: false
+  head_ref:
+    description: |-
+      The head git ref to use calculating metric differences against the base 
+      git ref.
+
+      For example, the calculation for determining the difference in bundle 
+      size will use the following logic:
+
+      ```
+      size_diff = size (head_ref) - size (base_ref)
+      ````
+
+      Defaults to the value of `${{ github.event.pull_request.head.ref }}`.
+    required: false
+  paths: 
+    description: |-
+      A list of glob expressions which are used to determine the JavaScript 
+      files to report metrics for.
+
+      **Example**
+      ```yaml
+      paths: |-
+        src/**/*.ts
+        scripts/**/*.ts
+      ```
+    required: true
