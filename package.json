@@ -38,7 +38,9 @@
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.28.0"
   },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.37.0"
+  "pnpm": {
+    "overrides": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
   }
 }
