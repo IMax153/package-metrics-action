@@ -6,10 +6,6 @@ runs:
   using: "node20"
   main: "dist/index.js"
 inputs:
-  github_token:
-    description: |-
-      The token that should be used to access the Github API
-    required: true
   git_user:
     description: |-
       This git user to use 
