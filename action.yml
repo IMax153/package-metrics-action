@@ -3,8 +3,8 @@ description: |-
   A GitHub Action purpose-built for the Effect organization to track various 
   package metrics, for example bundle size.
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: "docker"
+  image: "docker://ghcr.io/imax153/package-metrics-action"
 inputs:
   git_user:
     description: |-
