@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     "erasableSyntaxOnly": true,
+    "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "module": "NodeNext",
     "moduleDetection": "force",
-    "lib": ["ESNext"],
-    "noEmit": true, 
+    "lib": [
+      "ESNext"
+    ],
+    "noEmit": true,
     "noErrorTruncation": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -20,7 +23,13 @@
     "strict": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true,
-    "plugins": [{ "name": "@effect/language-service" }]
+    "plugins": [
+      {
+        "name": "@effect/language-service"
+      }
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

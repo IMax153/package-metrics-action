@@ -22,7 +22,8 @@ export class Rollup extends Effect.Service<Rollup>()("app/Rollup", {
     const plugins: Api.InputPluginOption = [
       nodeResolve(),
       esbuild(),
-      terser.default({ mangle: true, compress: true })
+      // @ts-expect-error see https://github.com/rollup/plugins/issues/1662
+      terser({ mangle: true, compress: true })
     ]
 
     const bundle = Effect.fn("Rollup.bundle")(
