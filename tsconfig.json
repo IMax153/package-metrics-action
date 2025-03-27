@@ -1,18 +1,26 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "erasableSyntaxOnly": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "NodeNext",
+    "moduleDetection": "force",
+    "lib": ["ESNext"],
+    "noEmit": true, 
+    "noErrorTruncation": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "rewriteRelativeImportExtensions": true,
     "rootDir": "src",
-    "outDir": "build",
-    "skipLibCheck": true,
-    "moduleResolution": "Bundler",
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "sourceMap": true,
     "strict": true,
-    "target": "ES2022",
-    "incremental": true,
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "target": "ESNext",
+    "verbatimModuleSyntax": true,
     "plugins": [{ "name": "@effect/language-service" }]
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }

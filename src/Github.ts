@@ -1,24 +1,22 @@
 import { getOctokit } from "@actions/github"
 import type { RequestError } from "@octokit/types"
+import type { Api } from "@octokit/plugin-rest-endpoint-methods"
 import { Data, Effect, Redacted, Schedule } from "effect"
-import { inputSecret } from "./utils/config"
+import { inputSecret } from "./utils/config.js"
 
 export class GithubError extends Data.TaggedError("GithubError")<{
   readonly reason: RequestError
-}> {}
+}> { }
 
-export class GitHub extends Effect.Service<GitHub>()("app/GitHub", {
+export class Github extends Effect.Service<Github>()("app/Github", {
   effect: Effect.gen(function*() {
     const token = yield* inputSecret("github_token")
     const client = getOctokit(Redacted.value(token))
 
-    const rest = client.rest
-    type Endpoints = typeof rest
-
     const request = Effect.fn("Github.request")(
-      <A>(f: (client: Endpoints) => Promise<A>) =>
+      <A>(f: (client: Api["rest"]) => Promise<A>) =>
         Effect.tryPromise({
-          try: () => f(rest),
+          try: () => f(client.rest as any),
           catch: (reason) => new GithubError({ reason: reason as any })
         }).pipe(
           Effect.retry({
@@ -38,4 +36,4 @@ export class GitHub extends Effect.Service<GitHub>()("app/GitHub", {
       request
     } as const
   })
-}) {}
+}) { }

@@ -1,6 +1,6 @@
 import { NodeStream } from "@effect/platform-node"
 import { nodeResolve } from "@rollup/plugin-node-resolve"
-import terser from "@rollup/plugin-terser"
+import * as terser from "@rollup/plugin-terser"
 import { Console, Data, Effect, Stream } from "effect"
 import { createGzip } from "node:zlib"
 import * as Api from "rollup"
@@ -8,7 +8,7 @@ import esbuild from "rollup-plugin-esbuild"
 
 export class RollupError extends Data.TaggedError("RollupError")<{
   readonly cause: unknown
-}> {}
+}> { }
 
 export class Rollup extends Effect.Service<Rollup>()("app/Rollup", {
   effect: Effect.gen(function*() {
@@ -22,7 +22,7 @@ export class Rollup extends Effect.Service<Rollup>()("app/Rollup", {
     const plugins: Api.InputPluginOption = [
       nodeResolve(),
       esbuild(),
-      terser({ mangle: true, compress: true })
+      terser.default({ mangle: true, compress: true })
     ]
 
     const bundle = Effect.fn("Rollup.bundle")(
@@ -54,4 +54,4 @@ export class Rollup extends Effect.Service<Rollup>()("app/Rollup", {
       bundle
     } as const
   })
-}) {}
+}) { }

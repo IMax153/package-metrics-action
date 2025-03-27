@@ -1,7 +1,7 @@
 import { Config, Data, Effect } from "effect"
 import { constVoid } from "effect/Function"
 import * as SimpleGit from "simple-git"
-import { input } from "./utils/config"
+import { input } from "./utils/config.ts"
 
 export class GitError extends Data.TaggedError("GitError")<{
   readonly cause: SimpleGit.GitError
@@ -104,4 +104,4 @@ export class Git extends Effect.Service<Git>()("app/Git", {
       open
     } as const
   })
-}) {}
+}) { }

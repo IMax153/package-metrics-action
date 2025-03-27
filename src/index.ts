@@ -1,8 +1,8 @@
 import { NodeRuntime } from "@effect/platform-node"
 import { Config, ConfigProvider, Effect, Layer } from "effect"
-import { Git } from "./Git"
-import { Rollup } from "./Rollup"
-import { input } from "./utils/config"
+import { Git } from "./Git.ts"
+import { Rollup } from "./Rollup.ts"
+import { input } from "./utils/config.ts"
 
 const ConfigProviderLayer = ConfigProvider.fromEnv().pipe(
   ConfigProvider.constantCase,
@@ -28,6 +28,13 @@ const main = Effect.gen(function*() {
 
   const baseDir = yield* git.clone(`https://github.com/${repository}.git`, "base")
   const headDir = yield* git.clone(`https://github.com/${repository}.git`, "head")
+
+  console.log({
+    baseRef,
+    headRef,
+    baseDir,
+    headDir
+  })
 })
 
 const MainLayer = Layer.mergeAll(
