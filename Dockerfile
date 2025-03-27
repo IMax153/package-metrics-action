@@ -13,5 +13,5 @@ COPY package.json tsconfig.json ./
 COPY src src
 COPY --from=deps /app/node_modules ./node_modules
 
-CMD ["src/index.ts"]
+CMD ["/app/src/index.ts"]
 ENTRYPOINT ["node"]
