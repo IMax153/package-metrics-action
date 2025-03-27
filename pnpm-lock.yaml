@@ -86,6 +86,10 @@ importers:
       typescript-eslint:
         specifier: ^8.28.0
         version: 8.28.0(eslint@9.23.0)(typescript@5.8.2)
+    optionalDependencies:
+      '@rollup/rollup-linux-x64-gnu':
+        specifier: '*'
+        version: 4.37.0
 
 packages:
 
