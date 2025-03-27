@@ -5,6 +5,9 @@ COPY package.json pnpm-lock.yaml ./
 RUN corepack pnpm install --prod --frozen-lockfile
 
 FROM node:23-alpine AS runner
+
+RUN apk update && apk add --no-cache git
+
 WORKDIR /app
 
 ENV NODE_ENV=production
