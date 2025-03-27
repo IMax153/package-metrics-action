@@ -1,5 +1,4 @@
 import { Config, Data, Effect } from "effect"
-import { constVoid } from "effect/Function"
 import * as SimpleGit from "simple-git"
 import { input } from "./utils/config.ts"
 
@@ -89,7 +88,7 @@ export class Git extends Effect.Service<Git>()("app/Git", {
         yield* use((git) =>
           info.startPoint
             ? git.checkoutBranch(info.ref, info.startPoint)
-            : git.checkout(info.ref).then(constVoid)
+            : git.checkout(info.ref).then(() => {})
         )
 
         return {
@@ -104,4 +103,4 @@ export class Git extends Effect.Service<Git>()("app/Git", {
       open
     } as const
   })
-}) { }
+}) {}

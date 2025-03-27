@@ -1,12 +1,12 @@
 import { getOctokit } from "@actions/github"
-import type { RequestError } from "@octokit/types"
 import type { Api } from "@octokit/plugin-rest-endpoint-methods"
+import type { RequestError } from "@octokit/types"
 import { Data, Effect, Redacted, Schedule } from "effect"
-import { inputSecret } from "./utils/config.js"
+import { inputSecret } from "./utils/config.ts"
 
 export class GithubError extends Data.TaggedError("GithubError")<{
   readonly reason: RequestError
-}> { }
+}> {}
 
 export class Github extends Effect.Service<Github>()("app/Github", {
   effect: Effect.gen(function*() {
@@ -36,4 +36,4 @@ export class Github extends Effect.Service<Github>()("app/Github", {
       request
     } as const
   })
-}) { }
+}) {}
