@@ -17,10 +17,10 @@ const main = Effect.gen(function*() {
   }
 
   const repository = yield* Config.nonEmptyString("GITHUB_REPOSITORY")
-  const baseRef = input("base_ref").pipe(
+  const baseRef = yield* input("base_ref").pipe(
     Config.orElse(() => Config.nonEmptyString("GITHUB_BASE_REF"))
   )
-  const headRef = input("head_ref").pipe(
+  const headRef = yield* input("head_ref").pipe(
     Config.orElse(() => Config.nonEmptyString("GITHUB_HEAD_REF"))
   )
 

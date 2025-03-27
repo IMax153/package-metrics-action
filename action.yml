@@ -27,6 +27,7 @@ inputs:
       ````
 
       Defaults to the value of `\$\{\{ github.event.pull_request.base.ref \}\}`.
+    default: ${{ github.event.pull_request.base.ref }}
     required: false
   head_ref:
     description: |-
@@ -41,6 +42,7 @@ inputs:
       ````
 
       Defaults to the value of `\$\{\{ github.event.pull_request.head.ref \}\}`.
+    default: ${{ github.event.pull_request.head.ref }}
     required: false
   paths: 
     description: |-
