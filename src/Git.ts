@@ -65,10 +65,12 @@ export class Git extends Effect.Service<Git>()("app/Git", {
             }
             // unqualified ref, check for matching branch or tag
             const branches = yield* use((git) => git.branch(["--list", "--remote", `origin/${ref}`]))
+            console.log({ branches })
             if (branches.all.length > 0) {
               return { ref, startPoint: `refs/remotes/origin/${ref}` }
             }
             const tags = yield* use((git) => git.tags(["--list", ref]))
+            console.log({ tags })
             if (tags.all.length > 0) {
               return { ref: `refs/tags/${ref}` }
             }

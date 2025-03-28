@@ -43,6 +43,7 @@ const MainLayer = Layer.mergeAll(
 ).pipe(Layer.provide(ConfigProviderLayer))
 
 main.pipe(
+  Effect.tapErrorCause(Effect.logError),
   Effect.provide(MainLayer),
   NodeRuntime.runMain
 )
