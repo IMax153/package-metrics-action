@@ -1,4 +1,5 @@
-import { NodeRuntime } from "@effect/platform-node"
+import { FileSystem } from "@effect/platform"
+import { NodeFileSystem, NodeRuntime } from "@effect/platform-node"
 import { Config, ConfigProvider, Effect, Layer } from "effect"
 import { Git } from "./Git.ts"
 import { Rollup } from "./Rollup.ts"
@@ -24,6 +25,7 @@ const main = Effect.gen(function*() {
     Config.orElse(() => Config.nonEmptyString("GITHUB_HEAD_REF"))
   )
 
+  const fs = yield* FileSystem.FileSystem
   const git = yield* Git
 
   const baseDir = yield* git.clone(`https://github.com/${repository}.git`, "base")
@@ -35,9 +37,18 @@ const main = Effect.gen(function*() {
     baseDir,
     headDir
   })
+
+  const files = yield* fs.readDirectory(process.cwd())
+  console.log({ files })
+
+  yield* fs.readDirectory("base").pipe(
+    Effect.andThen((files) => console.log({ baseFiles: files })),
+    Effect.ignore
+  )
 })
 
 const MainLayer = Layer.mergeAll(
+  NodeFileSystem.layer,
   Git.Default,
   Rollup.Default
 ).pipe(Layer.provide(ConfigProviderLayer))
