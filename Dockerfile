@@ -1,20 +1,18 @@
-FROM node:23-alpine AS deps
-WORKDIR /app
-ENV COREPACK_INTEGRITY_KEYS=0
-COPY package.json pnpm-lock.yaml ./
-RUN corepack pnpm install --prod --frozen-lockfile
-
-FROM node:23-alpine AS runner
-
-RUN apk update && apk add --no-cache git
-
+FROM node:23-alpine AS base
+ENV NODE_NO_WARNINGS=1
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+COPY package.json pnpm-lock.yaml /app
 WORKDIR /app
 
-ENV NODE_ENV=production
+FROM base AS deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+  pnpm install --prod --frozen-lockfile
 
-COPY package.json tsconfig.json ./
-COPY src src
-COPY --from=deps /app/node_modules ./node_modules
-
-CMD ["/app/src/index.ts"]
-ENTRYPOINT ["node"]
+FROM base
+RUN --mount=type=cache,target=/var/cache/apk \
+  apk add --update git
+COPY --from=deps /app/node_modules /app/node_modules
+COPY . .
+ENTRYPOINT ["node", "/app/src/index.ts"]

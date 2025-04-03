@@ -1,5 +1,5 @@
-import { FileSystem } from "@effect/platform"
-import { NodeFileSystem, NodeRuntime } from "@effect/platform-node"
+import { FileSystem, Path } from "@effect/platform"
+import { NodeContext, NodeRuntime } from "@effect/platform-node"
 import { Config, ConfigProvider, Effect, Layer } from "effect"
 import { Git } from "./Git.ts"
 import { Rollup } from "./Rollup.ts"
@@ -26,10 +26,13 @@ const main = Effect.gen(function*() {
   )
 
   const fs = yield* FileSystem.FileSystem
+  const path = yield* Path.Path
   const git = yield* Git
 
-  const baseDir = yield* git.clone(`https://github.com/${repository}.git`, "base")
-  const headDir = yield* git.clone(`https://github.com/${repository}.git`, "head")
+  const baseDir = path.resolve("base")
+  const headDir = path.resolve("head")
+  yield* git.clone(`https://github.com/${repository}.git`, baseDir)
+  yield* git.clone(`https://github.com/${repository}.git`, headDir)
 
   console.log({
     baseRef,
@@ -48,7 +51,7 @@ const main = Effect.gen(function*() {
 })
 
 const MainLayer = Layer.mergeAll(
-  NodeFileSystem.layer,
+  NodeContext.layer,
   Git.Default,
   Rollup.Default
 ).pipe(Layer.provide(ConfigProviderLayer))

@@ -1,0 +1,12 @@
+.direnv
+.envrc
+.git
+.gitignore
+.tsbuildinfo
+*.md
+action.yaml
+flake.nix
+flake.lock
+eslint.config.js
+node_modules
+dist

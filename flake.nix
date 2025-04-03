@@ -17,7 +17,8 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             corepack
-            nodejs
+            dive
+            nodejs_23
           ];
         };
       });

@@ -6,9 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "NodeNext",
     "moduleDetection": "force",
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "noEmit": true,
     "noErrorTruncation": false,
     "noFallthroughCasesInSwitch": true,
@@ -23,13 +21,7 @@
     "strict": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true,
-    "plugins": [
-      {
-        "name": "@effect/language-service"
-      }
-    ]
+    "plugins": [{ "name": "@effect/language-service" }]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
