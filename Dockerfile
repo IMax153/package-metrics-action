@@ -3,8 +3,8 @@ ENV NODE_NO_WARNINGS=1
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
-COPY package.json pnpm-lock.yaml /app
 WORKDIR /app
+COPY package.json pnpm-lock.yaml .
 
 FROM base AS deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
